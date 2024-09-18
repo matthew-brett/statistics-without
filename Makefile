@@ -7,6 +7,7 @@ PIP_INSTALL_CMD ?= $(PYTHON) -m pip install
 SDIRS=images data
 
 slides: $(PRESENTATION)
+	pip install -r requirements.txt
 	quarto render $(PRESENTATION) --to revealjs --output-dir $(OUTPUT_DIR)
 
 slides-jl: slides
