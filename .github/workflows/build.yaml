@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-      - edition-*
+
+permissions:
+  contents: write
 
 jobs:
   build-book:
@@ -13,8 +15,6 @@ jobs:
       R_LIBS_USER: ~/R_libs:~/R:~/R-dev
       QUARTO_VER: "1.6.1"
       PANDOC_VER: "3.2"
-      # https://github.com/r-lib/remotes/issues/641
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
       # Push the book's HTML to github-pages
       - name: GitHub Pages action
         if: ${{ github.ref == 'refs/heads/main' }}
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_build
