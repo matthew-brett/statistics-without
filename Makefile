@@ -1,4 +1,19 @@
-presentation=index.qmd
+PRESENTATION=index.qmd
+OUTPUT_DIR=_build
+OUTPUT_NB=$(patsubst %.qmd,%.ipynb,$(PRESENTATION))
+PYTHON ?= python
+PIP_INSTALL_CMD ?= $(PYTHON) -m pip install
 
-slides: $(presentation)
-	quarto render $(presentation) --to revealjs --output-dir _build
+echo:
+	echo $(OUTPUT_NB)
+
+slides: $(PRESENTATION)
+	quarto render $(PRESENTATION) --to revealjs --output-dir $(OUTPUT_DIR)
+
+slides-jl: slides
+	# Jupyter-lite files for presentation build.
+	$(PIP_INSTALL_CMD) -r py-jl-requirements.txt
+	jupytext --to ipynb $(PRESENTATION) -o $(OUTPUT_NB)
+	$(PYTHON) -m jupyter lite build \
+		--contents . \
+		--output-dir $(OUTPUT_DIR)

@@ -7,10 +7,6 @@ format:
     embed-resources: true
 ---
 
-<!---
-https://quarto.org/docs/presentations/revealjs
--->
-
 ## First slide
 
 Some text
@@ -28,4 +24,3 @@ a <- 1
 ::: footer
 More information.
 :::
-

@@ -8,3 +8,5 @@ __pycache__/
 ~*
 /.quarto/
 _build/
+index.ipynb
+.jupyterlite.doit.db
