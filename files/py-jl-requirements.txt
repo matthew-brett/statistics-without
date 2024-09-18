@@ -1,5 +1,0 @@
-# Python requirements to build jupyter-lite site
--r requirements.txt
-jupyterlite-core
-jupyterlite-pyodide-kernel
-jupyterlab_server
