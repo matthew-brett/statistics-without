@@ -1,0 +1,4 @@
+# Requirements for notebook
+scipy
+matplotlib
+jupytext
