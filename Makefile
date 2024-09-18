@@ -4,9 +4,6 @@ OUTPUT_NB=$(patsubst %.qmd,%.ipynb,$(PRESENTATION))
 PYTHON ?= python
 PIP_INSTALL_CMD ?= $(PYTHON) -m pip install
 
-echo:
-	echo $(OUTPUT_NB)
-
 slides: $(PRESENTATION)
 	quarto render $(PRESENTATION) --to revealjs --output-dir $(OUTPUT_DIR)
 
@@ -17,3 +14,6 @@ slides-jl: slides
 	$(PYTHON) -m jupyter lite build \
 		--contents . \
 		--output-dir $(OUTPUT_DIR)
+
+clean:
+	git clean -fxd
