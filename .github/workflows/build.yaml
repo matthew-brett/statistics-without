@@ -1,0 +1,49 @@
+name: Build presentation
+
+on:
+  push:
+    branches:
+      - main
+      - edition-*
+
+jobs:
+  build-book:
+    runs-on: ubuntu-latest
+    env:
+      R_LIBS_USER: ~/R_libs:~/R:~/R-dev
+      QUARTO_VER: "1.6.1"
+      PANDOC_VER: "3.2"
+      # https://github.com/r-lib/remotes/issues/641
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Apt update
+        run: sudo apt update
+
+      - name: Install quarto and matching pandoc
+        run: |
+          sudo apt install -y curl
+          curl -L https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VER}/quarto-${QUARTO_VER}-linux-amd64.deb -o quarto.deb
+          # PANDOC appends -1 to the archive root name for .deb packages.
+          curl -L https://github.com/jgm/pandoc/releases/download/${PANDOC_VER}/pandoc-${PANDOC_VER}-1-amd64.deb -o pandoc.deb
+          sudo dpkg --install quarto.deb pandoc.deb
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Build presentation
+        run: |
+          make slides
+
+      # Push the book's HTML to github-pages
+      - name: GitHub Pages action
+        if: ${{ github.ref == 'refs/heads/main' }}
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_build

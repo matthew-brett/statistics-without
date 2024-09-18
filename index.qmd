@@ -1,0 +1,31 @@
+---
+title: "Statistics without the agonizing pain"
+author: "Matthew Brett"
+format:
+  revealjs:
+    preview-links: auto
+    embed-resources: true
+---
+
+<!---
+https://quarto.org/docs/presentations/revealjs
+-->
+
+## First slide
+
+Some text
+
+-   Point 1
+-   Point 2
+
+## Code
+
+```r
+# Some code
+a <- 1
+```
+
+::: footer
+More information.
+:::
+
