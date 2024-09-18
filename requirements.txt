@@ -1,4 +1,5 @@
 # Requirements for notebook
 scipy
+pandas
 matplotlib
 jupytext

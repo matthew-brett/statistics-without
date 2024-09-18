@@ -1,26 +1,131 @@
 ---
 title: "Statistics without the agonizing pain"
 author: "Matthew Brett"
+bibliography: without.bib
 format:
   revealjs:
     preview-links: auto
     embed-resources: true
 ---
 
-## First slide
+## Standing on the YouTube channels of giants
 
-Some text
+With thanks to John Rauser: [Statistics Without the Agonizing
+Pain](https://www.youtube.com/watch?v=5Dnw46eC-0o)
 
--   Point 1
--   Point 2
+## Assertion
 
-## Code
+> Teaching statistics by way of mathematics is like teaching philosophy by way
+of ancient Greek
 
-```r
-# Some code
-a <- 1
+(Paraphrased from @wallis1956statistics).
+
+## Epicycles
+
+![](images/ptolemaic.png)
+
+@cobb2007introductory
+
+## A problem
+
+![](images/mosquito_banner.png)
+
+## Our data
+
+From [Mosquito, beer
+dataset](https://github.com/odsti/datasets/tree/main/mosquito_beer).
+
+```{python}
+import numpy as np  # The array library.
+import pandas as pd  # Data science library.
+import matplotlib.pyplot as plt  # Plotting library.
+
+# Load the data file.
+mosquitoes = pd.read_csv('data/mosquito_beer.csv')
+# Select the measurements after drink (beer or water).
+afters = mosquitoes[mosquitoes['test'] == 'after']
+# Get the activated values for beer and water.
+beers = afters.loc[afters['group'] == 'beer', 'activated'].values
+waters = afters.loc[afters['group'] == 'water', 'activated'].values
 ```
+
+```{python}
+#| echo: true
+beers
+```
+
+```{python}
+#| echo: true
+waters
+```
+
+## Distributions
+
+```{python}
+# Plot histograms of beer and water values.
+bins = np.arange(0, 38, 2)
+plt.hist(beers, bins=bins, alpha=0.5, label='beer')
+plt.hist(waters, bins=bins, alpha=0.5, label='water')
+plt.title('Distribution of beer and water values')
+plt.legend();
+```
+
+## Means and difference
+
+```{python}
+mean_beer = np.mean(beers)
+print(f'Mean of beer values is: {mean_beer:.2f}')
+```
+
+```{python}
+mean_water = np.mean(waters)
+print(f'Mean of water values is: {mean_water:.2f}')
+```
+
+```{python}
+mean_diff = mean_beer - mean_water
+print(f'Mean difference is: {mean_diff:.2f}')
+```
+
+## The null hypothesis
+
+Null means "not any".
+
+Define a world in which the difference of interest is set to zero.
+
+> The two samples have been drawn from the same underlying population.
+
+Or:
+
+> There is not any difference in the population from which `beer` has been
+drawn, and the population from which `water` has been drawn.
+
+## The t-test.
+
+![](images/ind_t_test.jpg)
+
+::: footer
+See the [t-test formula page of Statistical tools for high-throughput data
+analysis](http://www.sthda.com/english/wiki/t-test-formula#independent-two-sample-t-test)
+:::
+
+## A reasonable reaction
+
+![](images/munch_scream.jpg)
+
+::: footer
+Edvard Munch "Scream", photo by [Richard
+Mortel](https://www.flickr.com/photos/prof_richard/35658212823), licensed with
+[CC-By](https://creativecommons.org/licenses/by/2.0).
+:::
+
+## Read more
+
+* [Our textbook](https://lisds.github.io/textbook)
+* [Resampling with R and Python book](https://resampling-stats.github.io).
 
 ::: footer
 More information.
 :::
+
+## Bibliography
