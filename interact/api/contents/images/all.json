@@ -1,0 +1,71 @@
+{
+  "content": [
+    {
+      "content": null,
+      "created": "2024-09-18T23:23:30.267112Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-09-18T23:23:28.013113Z",
+      "mimetype": "image/png",
+      "name": "ptolemaic.png",
+      "path": "images/ptolemaic.png",
+      "size": 44705,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-09-18T23:23:30.266112Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-09-18T23:23:28.013113Z",
+      "mimetype": "image/png",
+      "name": "mosquito_banner.png",
+      "path": "images/mosquito_banner.png",
+      "size": 105515,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-09-18T23:23:30.265111Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-09-18T23:23:28.013113Z",
+      "mimetype": "image/jpeg",
+      "name": "ind_t_test.jpg",
+      "path": "images/ind_t_test.jpg",
+      "size": 378679,
+      "type": "file",
+      "writable": true
+    },
+    {
+      "content": null,
+      "created": "2024-09-18T23:23:30.267112Z",
+      "format": null,
+      "hash": null,
+      "hash_algorithm": null,
+      "last_modified": "2024-09-18T23:23:28.013113Z",
+      "mimetype": "image/jpeg",
+      "name": "munch_scream.jpg",
+      "path": "images/munch_scream.jpg",
+      "size": 137265,
+      "type": "file",
+      "writable": true
+    }
+  ],
+  "created": "2024-09-18T23:23:30.267112Z",
+  "format": "json",
+  "hash": null,
+  "hash_algorithm": null,
+  "last_modified": "2024-09-18T23:23:30.267112Z",
+  "mimetype": null,
+  "name": "images",
+  "path": "images",
+  "size": null,
+  "type": "directory",
+  "writable": true
+}

@@ -9,6 +9,19 @@
     "federated_extensions": [
       {
         "extension": "./extension",
+        "liteExtension": false,
+        "load": "static/remoteEntry.04dfa589925e7e7c6a3d.js",
+        "name": "@jupyter-notebook/lab-extension",
+        "style": "./style"
+      },
+      {
+        "extension": "./extension",
+        "liteExtension": false,
+        "load": "static/remoteEntry.e4ff09401a2f575928c0.js",
+        "name": "@jupyter-widgets/jupyterlab-manager"
+      },
+      {
+        "extension": "./extension",
         "liteExtension": true,
         "load": "static/remoteEntry.26d08a103ba745fd5c80.js",
         "name": "@jupyterlite/pyodide-kernel-extension"
