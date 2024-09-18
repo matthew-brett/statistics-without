@@ -14,10 +14,11 @@ slides-jl: slides
 	mkdir -p $(NB_DIR)
 	jupytext --to ipynb $(PRESENTATION) -o $(OUTPUT_NB)
 	cp -r images $(NB_DIR)
-	sed -i '' 's/"name": "python.*"/"name": "python"/g' $(OUTPUT_NB)
+	$(PYTHON) ./scripts/process_notebooks.py $(NB_DIR)
 	$(PYTHON) -m jupyter lite build \
 		--contents $(NB_DIR) \
-		--output-dir $(OUTPUT_DIR)/interact
+		--output-dir $(OUTPUT_DIR)/interact \
+		--lite-dir $(NB_DIR)
 
 clean:
 	git clean -fxd

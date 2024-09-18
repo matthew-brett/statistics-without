@@ -10,3 +10,4 @@ __pycache__/
 _build/
 index.ipynb
 .jupyterlite.doit.db
+_notebooks/

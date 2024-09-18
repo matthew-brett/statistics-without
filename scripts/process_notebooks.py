@@ -61,7 +61,7 @@ def process_dir(input_dir, output_dir, language, in_nb_suffix, kernel_name,
                ):
     output_dir.mkdir(exist_ok=True, parents=True)
     for path in input_dir.glob('*'):
-        if path.is_dir():
+        if path.is_dir() and input_dir != output_dir:
             shutil.copytree(path, output_dir / path.name, dirs_exist_ok=True)
             continue
         if path.suffix != in_nb_suffix:
@@ -81,8 +81,6 @@ def get_parser():
                             formatter_class=RawDescriptionHelpFormatter)
     parser.add_argument('source_path',
                         help='Directory with input notebooks')
-    parser.add_argument('source_path',
-                        help='Directory with input notebooks')
     return parser
 
 
@@ -91,6 +89,7 @@ def main():
     args = parser.parse_args()
     source_path = Path(args.source_path)
     process_dir(source_path,
+                source_path,
                 'python',
                 '.ipynb',
                 'python',
