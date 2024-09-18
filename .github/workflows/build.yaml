@@ -31,6 +31,7 @@ jobs:
           # PANDOC appends -1 to the archive root name for .deb packages.
           curl -L https://github.com/jgm/pandoc/releases/download/${PANDOC_VER}/pandoc-${PANDOC_VER}-1-amd64.deb -o pandoc.deb
           sudo dpkg --install quarto.deb pandoc.deb
+          rm *.deb
 
       - uses: actions/setup-python@v4
         with:
