@@ -1,7 +1,5 @@
 # Requirements for notebook
 scipy
-pandas
-pyarrow  # To silence warning.
 matplotlib
 jupyter
 jupytext
