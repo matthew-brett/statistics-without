@@ -26,6 +26,12 @@ of ancient Greek
 
 @cobb2007introductory
 
+## A whole new world
+
+* "Code to learn" rather than "learn to code".
+* Build statistical procedures.
+* Thinking about randomness.
+
 ## A problem
 
 ![](images/mosquito_banner.png)
@@ -37,32 +43,31 @@ dataset](https://github.com/odsti/datasets/tree/main/mosquito_beer).
 
 ```{python}
 import numpy as np  # The array library.
-import pandas as pd  # Data science library.
-import matplotlib.pyplot as plt  # Plotting library.
-
-# Load the data file.
-mosquitoes = pd.read_csv('data/mosquito_beer.csv')
-# Select the measurements after drink (beer or water).
-afters = mosquitoes[mosquitoes['test'] == 'after']
-# Get the activated values for beer and water.
-beers = afters.loc[afters['group'] == 'beer', 'activated'].values
-waters = afters.loc[afters['group'] == 'water', 'activated'].values
 ```
 
 ```{python}
 #| echo: true
-beers
+beers = np.array([14, 33, 27, 11, 12,
+                  27, 26, 25, 27, 27,
+                  22, 36, 37,  3, 23,
+                  7 , 25, 17, 36, 31,
+                  30, 22, 20, 29, 23])
 ```
 
 ```{python}
 #| echo: true
-waters
+waters = np.array([33, 23, 23, 13, 24,
+                    8,  4, 21, 24, 21,
+                   26, 27, 22, 21, 25,
+                   20,  7, 3])
 ```
 
 ## Distributions
 
 ```{python}
 # Plot histograms of beer and water values.
+import matplotlib.pyplot as plt  # Plotting library.
+
 bins = np.arange(0, 38, 2)
 plt.hist(beers, bins=bins, alpha=0.5, label='beer')
 plt.hist(waters, bins=bins, alpha=0.5, label='water')
@@ -89,16 +94,26 @@ print(f'Mean difference is: {mean_diff:.2f}')
 
 ## The null hypothesis
 
+Or *the null universe*.
+
+Or *the null world*.
+
 Null means "not any".
 
 Define a world in which the difference of interest is set to zero.
 
-> The two samples have been drawn from the same underlying population.
-
-Or:
-
 > There is not any difference in the population from which `beer` has been
 drawn, and the population from which `water` has been drawn.
+
+## Null implies
+
+If we draw a very large number of similar samples for `beer` and `water`, then
+the average mean difference will approach 0.
+
+* Observed: 4.43
+* Expected in long run on null: 0
+
+Is this observed value plausibly interpreted as a mean difference of samples from the null-world?
 
 ## The t-test.
 
@@ -109,18 +124,305 @@ See the [t-test formula page of Statistical tools for high-throughput data
 analysis](http://www.sthda.com/english/wiki/t-test-formula#independent-two-sample-t-test)
 :::
 
+## A take-out meal
+
+```{python}
+#| echo: true
+import scipy.stats as sps
+
+sps.ttest_ind(beers, waters, alternative='greater')
+```
+
 ## A reasonable reaction
 
 ![](images/munch_scream.jpg)
 
 ::: footer
-Edvard Munch "Scream", photo by [Richard
+Edvard Munch (1893) "The Scream", photo by [Richard
 Mortel](https://www.flickr.com/photos/prof_richard/35658212823), licensed with
 [CC-By](https://creativecommons.org/licenses/by/2.0).
 :::
 
+## Another way
+
+We would like to draw a very large number of `beer` and `water` samples from
+the null world.
+
+For each null-world sample, we calculate the mean difference.
+
+These mean-difference values form the *sampling distribution under the null hypothesis*.
+
+But — how do we get these many samples?
+
+## Some machinery
+
+Variables are names for values:
+
+```{python}
+#| echo: true
+a = 10
+# Show the result.
+a
+```
+
+```{python}
+#| echo: true
+b = 99
+# Show the result.
+b
+```
+
+## Arrays
+
+Arrays are values that are containers for other values.  They can contain many values.
+
+```{python}
+#| echo: true
+c = np.array([1, 3, 5, 9])
+c
+```
+
+```{python}
+#| echo: true
+d = np.array([100, -4, 3.9, 7, 0, -2.1])
+d
+```
+
+## Working with arrays
+
+We can stick arrays (containers) together with the `concatenate` function:
+
+```{python}
+#| echo: true
+e = np.concatenate([c, d])
+e
+```
+
+We can select the first (e.g.) 4 elements with *indexing*:
+
+```{python}
+#| echo: true
+# Select the first four elements.
+f = e[:4]
+f
+```
+
+## Randomness
+
+The computer provides routines to generate randomness:
+
+```{python}
+#| echo: true
+# Random number generator.
+rng = np.random.default_rng()
+```
+
+Among many other things, we can randomly shuffle (permute) the values in
+arrays.
+
+```{python}
+#| echo: true
+g = rng.permuted(f)
+# Show the result.
+g
+```
+
+```{python}
+#| echo: true
+# And again, showing the result.
+rng.permuted(f)
+```
+
+## Samples from the null?
+
+The permutation idea:
+
+* Put all the `beer` and `water` values into one large array.
+* This large array will represent the (shared) population under the null.
+* Select 25 values at random from this array.  These are the fake beer values.
+* The remaining 18 will be the fake water values.
+* Calculate the mean difference.
+
+## The "population"
+
+```{python}
+#| echo: true
+population = np.concatenate([beers, waters])
+population
+```
+
+```{python}
+#| echo: true
+shuffled = rng.permuted(population)
+shuffled
+```
+
+## One trial starts
+
+```{python}
+#| echo: true
+# A new shuffling
+shuffled = rng.permuted(population)
+# Select the first 25 values as the fake beer values.
+fake_beers = shuffled[:25]
+fake_beers
+```
+
+```{python}
+#| echo: true
+# Select the last 18 values (from 25 onwards) as fake water.
+fake_waters = shuffled[25:]
+fake_waters
+```
+
+## One trial finishes
+
+```{python}
+#| echo: true
+# Mean of the fake beer values.
+fbm = np.mean(fake_beers)
+fbm
+```
+
+```{python}
+#| echo: true
+# Mean of the fake water values.
+fwm = np.mean(fake_waters)
+fwm
+```
+
+```{python}
+#| echo: true
+# Difference between the fake means.
+fm_diff = fbm - fwm
+fm_diff
+```
+
+## One trial in one cell
+
+```{python}
+#| echo: true
+shuffled = rng.permuted(population)
+fake_beers = shuffled[:25]
+fake_waters = shuffled[25:]
+fbm = np.mean(fake_beers)
+fwm = np.mean(fake_waters)
+fm_diff = fbm - fwm
+fm_diff
+```
+
+```{python}
+#| echo: true
+# And again.
+shuffled = rng.permuted(population)
+fake_beers = shuffled[:25]
+fake_waters = shuffled[25:]
+fbm = np.mean(fake_beers)
+fwm = np.mean(fake_waters)
+fm_diff = fbm - fwm
+fm_diff
+```
+
+## Repeating trials
+
+```{python}
+#| echo: true
+# Repeat procedure eight times.
+for i in range(8):
+    print(i)
+```
+
+## Storing the results for each trial
+
+```{python}
+#| echo: true
+# Making an array of zeros.
+z = np.zeros(8)
+z
+```
+
+```{python}
+#| echo: true
+# Setting an element.
+z[0] = 1  # Set the first element.
+z[1] = 99  # Set the second element.
+z
+```
+
+## And finally
+
+```{python}
+#| echo: true
+z = np.zeros(10000)
+
+# Repeat procedure 10000 times.
+for i in range(10000):
+    # The trial procedure above.
+    shuffled = rng.permuted(population)
+    fake_beers = shuffled[:25]
+    fake_waters = shuffled[25:]
+    fbm = np.mean(fake_beers)
+    fwm = np.mean(fake_waters)
+    fm_diff = fbm - fwm
+    # Store the result.
+    z[i] = fm_diff
+
+# Show the first 10 values.
+z[:10]
+```
+
+## The sampling distribution
+
+```{python}
+#| echo: true
+plt.hist(z, bins=50)
+plt.title('Sampling distribution of mean difference')
+plt.axvline(mean_diff, color='red', label='Observed difference')
+plt.legend()
+```
+
+## The p value
+
+```{python}
+#| echo: true
+n_ge = np.count_nonzero(z >= mean_diff)
+n_ge
+```
+
+```{python}
+#| echo: true
+p = n_ge / 10000
+p
+```
+
+## Back to the t-test
+
+```{python}
+#| echo: true
+sps.ttest_ind(beers, waters, alternative='greater')
+```
+
+```{python}
+#| echo: true
+sps.ttest_ind(beers, waters, permutations=10000, alternative='greater')
+```
+
+## And likewise for ...
+
+* [Inference on contingency
+  tables]((https://lisds.github.io/textbook/wild-pandas/fishers_tea).
+* [Regressin and correlation](https://lisds.github.io/textbook/wild-pandas/mean-slopes/inference_on_slopes)
+
+## The new world
+
+* Everything is resampling.
+* Traditional statistics by analogy.
+* Data science libraries for working with data.
+* Reproducibility by design.
+
 ## Read more
 
+* [Berkeley textbook](https://inferentialthinking.com)
 * [Our textbook](https://lisds.github.io/textbook)
 * [Resampling with R and Python book](https://resampling-stats.github.io).
 
