@@ -415,7 +415,7 @@ sps.ttest_ind(beers, waters, permutations=10000, alternative='greater')
 
 * [Inference on contingency
   tables](https://lisds.github.io/textbook/wild-pandas/fishers_tea).
-* [Regression and correlation](https://lisds.github.io/textbook/wild-pandas/mean-slopes/inference_on_slopes)
+* [Regression and correlation](https://lisds.github.io/textbook/mean-slopes/inference_on_slopes)
 
 ## The new world
 
