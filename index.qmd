@@ -13,6 +13,10 @@ format:
 John Rauser: [Statistics Without the Agonizing
 Pain](https://www.youtube.com/watch?v=5Dnw46eC-0o)
 
+## Getting started
+
+Go to <https://bit.ly/statistics-without>.
+
 ## Assertion
 
 > Teaching statistics by way of mathematics is like teaching philosophy by way
@@ -425,5 +429,10 @@ sps.ttest_ind(beers, waters, permutations=10000, alternative='greater')
 * [Berkeley textbook](https://inferentialthinking.com)
 * [Our textbook](https://lisds.github.io/textbook)
 * [Resampling with R and Python book](https://resampling-stats.github.io).
+
+## The end
+
+All material for this talk at
+<https://github.com/matthew-brett/statistics-without>.
 
 ## Bibliography
