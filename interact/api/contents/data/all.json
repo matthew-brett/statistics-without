@@ -2,11 +2,11 @@
   "content": [
     {
       "content": null,
-      "created": "2024-09-18T23:34:51.315509Z",
+      "created": "2024-09-19T09:45:35.958569Z",
       "format": null,
       "hash": null,
       "hash_algorithm": null,
-      "last_modified": "2024-09-18T23:34:49.104525Z",
+      "last_modified": "2024-09-19T09:45:33.676568Z",
       "mimetype": "text/csv",
       "name": "mosquito_beer.csv",
       "path": "data/mosquito_beer.csv",
@@ -15,11 +15,11 @@
       "writable": true
     }
   ],
-  "created": "2024-09-18T23:34:51.315509Z",
+  "created": "2024-09-19T09:45:35.957569Z",
   "format": "json",
   "hash": null,
   "hash_algorithm": null,
-  "last_modified": "2024-09-18T23:34:51.315509Z",
+  "last_modified": "2024-09-19T09:45:35.957569Z",
   "mimetype": null,
   "name": "data",
   "path": "data",
